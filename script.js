@@ -1,0 +1,1 @@
+function spin(){const arr=document.getElementById('items').value.split(/\n/).map(v=>v.trim()).filter(Boolean);if(!arr.length){alert('항목을 입력하세요');return;}const r=arr[Math.floor(Math.random()*arr.length)];document.getElementById('result').textContent='🎉 결과: '+r;}
