@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>내신 평균 계산기</title>
+
+<style>
+body{
+    font-family:Arial,sans-serif;
+    background:#f4f7fb;
+    margin:0;
+}
+
+.container{
+    max-width:700px;
+    margin:40px auto;
+    background:white;
+    padding:25px;
+    border-radius:15px;
+    box-shadow:0 0 15px rgba(0,0,0,.1);
+}
+
+h1{
+    text-align:center;
+    color:#2d6cdf;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:20px;
+}
+
+th,td{
+    padding:10px;
+    text-align:center;
+}
+
+input{
+    width:90%;
+    padding:8px;
+}
+
+button{
+    margin-top:15px;
+    padding:12px 18px;
+    border:none;
+    border-radius:8px;
+    background:#2d6cdf;
+    color:white;
+    cursor:pointer;
+    font-size:16px;
+}
+
+button:hover{
+    background:#1b53b8;
+}
+
+.result{
+    margin-top:25px;
+    text-align:center;
+    font-size:28px;
+    font-weight:bold;
+    color:#2d6cdf;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>📚 내신 평균 계산기</h1>
+
+<table id="gradeTable">
+<tr>
+<th>과목명</th>
+<th>등급</th>
+<th>단위수</th>
+</tr>
+
+<tr>
+<td><input placeholder="국어"></td>
+<td><input type="number" min="1" max="9"></td>
+<td><input type="number" min="1"></td>
+</tr>
+
+<tr>
+<td><input placeholder="수학"></td>
+<td><input type="number" min="1" max="9"></td>
+<td><input type="number" min="1"></td>
+</tr>
+
+<tr>
+<td><input placeholder="영어"></td>
+<td><input type="number" min="1" max="9"></td>
+<td><input type="number" min="1"></td>
+</tr>
+
+</table>
+
+<button onclick="addRow()">과목 추가</button>
+<button onclick="calculate()">평균 계산</button>
+<button onclick="resetTable()">초기화</button>
+
+<div class="result" id="result">
+평균 등급 -
+</div>
+
+</div>
+
+<script>
+
+function addRow(){
+
+let table=document.getElementById("gradeTable");
+
+let row=table.insertRow();
+
+row.innerHTML=`
+<td><input></td>
+<td><input type="number" min="1" max="9"></td>
+<td><input type="number" min="1"></td>
+`;
+
+}
+
+function calculate(){
+
+let table=document.getElementById("gradeTable");
+
+let total=0;
+
+let credit=0;
+
+for(let i=1;i<table.rows.length;i++){
+
+let grade=Number(table.rows[i].cells[1].children[0].value);
+
+let unit=Number(table.rows[i].cells[2].children[0].value);
+
+if(grade>0 && unit>0){
+
+total+=grade*unit;
+
+credit+=unit;
+
+}
+
+}
+
+if(credit==0){
+
+document.getElementById("result").innerHTML="입력하세요.";
+
+return;
+
+}
+
+let avg=(total/credit).toFixed(2);
+
+document.getElementById("result").innerHTML=
+"⭐ 평균 등급 : "+avg+" 등급";
+
+}
+
+function resetTable(){
+
+location.reload();
+
+}
+
+</script>
+
+</body>
+</html>
